@@ -34,9 +34,9 @@ export default function Session() {
                     <h2>{e.weekday}, {e.date}</h2>
                     <Divisoria />
                     <Botoes>
-                        {e.showtimes.map((e) => (
-                            <Link to={`/assentos/${e.id}`}>
-                                <Botao>{e.name}</Botao>
+                        {e.showtimes.map((e,i) => (
+                            <Link key={i} to={`/assentos/${e.id}`}>
+                                <Botao >{e.name}</Botao>
                             </Link>
                         ))}
                     </Botoes>
