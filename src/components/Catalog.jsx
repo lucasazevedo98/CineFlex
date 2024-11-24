@@ -2,6 +2,7 @@ import styled from "styled-components"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom';
+import carregando from "../assets/carregando.webp"
 
 export default function Catalog() {
 
@@ -14,7 +15,9 @@ export default function Catalog() {
     }, [])
 
 
-    if (filmes===null) return <p>Carregando...</p>;
+    if (filmes===null) {
+        return<Carregando><img src={carregando} /></Carregando>;
+    }
 
     return (
         <Conteudo>
@@ -72,4 +75,17 @@ const Filmes = styled.div`
 
 
 
+`
+
+const Carregando = styled.div`
+    width:100%;
+    height:100vh;
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    
+    img{
+        width:100px;
+        height:100px;
+    }
 `

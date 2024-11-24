@@ -27,6 +27,7 @@ const Topo = styled.div `
     img {
         width: 40px;
         height:40px;
+        cursor:pointer;
     }
 
     h1 {
@@ -35,6 +36,7 @@ const Topo = styled.div `
         color:#FADBC5;
         font-weight:600;
         margin-left:10px;
+        cursor:pointer;
     }
 
 

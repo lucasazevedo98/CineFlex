@@ -4,16 +4,15 @@ import axios from "axios";
 import styled from "styled-components";
 import { Conteudo } from "./Catalog";
 import { Link } from "react-router-dom";
+import Carregando from "./Catalog"
+import carregando from "../assets/carregando.webp"
 
 
 
 
 export default function Session() {
     const { id } = useParams();
-    const [sessao, setSessao] = useState([])
-
-
-
+    const [sessao, setSessao] = useState(null)
 
     useEffect(() => {
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${id}/showtimes`)
@@ -22,6 +21,8 @@ export default function Session() {
 
 
     }, [])
+
+    if (sessao===null) return<Carregando><img src={carregando} /></Carregando>;;
 
 
 
