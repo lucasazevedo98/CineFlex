@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom';
 
 export default function Catalog() {
 
-    const [filmes, setFilmes] = useState([])
+    const [filmes, setFilmes] = useState(null)
 
     useEffect(() => {
         axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
@@ -13,14 +14,16 @@ export default function Catalog() {
     }, [])
 
 
-
+    if (filmes===null) return <p>Carregando...</p>;
 
     return (
         <Conteudo>
             <h1>Em Cartaz</h1>
             <Filmes>
-                {filmes.map((filme) => (
-                    <img src={filme.posterURL}></img>
+                {filmes.map((filme,i) => (
+                    <Link to={`/sessao/${filme.id}`} key={i}>
+                    <img src={filme.posterURL} title={filme.title} />
+                    </Link>
                 ))}
             </Filmes>
 
@@ -29,7 +32,7 @@ export default function Catalog() {
 }
 
 
-const Conteudo = styled.div`
+export const Conteudo = styled.div`
     height:100%;
     width:100%;
     background-color:#212226;

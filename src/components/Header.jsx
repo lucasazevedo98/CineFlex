@@ -1,11 +1,16 @@
 import styled from "styled-components"
 import logo from "../assets/logo.png"
+import { useNavigate } from "react-router-dom"
 
 export default function Header() {
+
+    const navigate = useNavigate();
+
+
     return (
         <Topo>
-            <img src={logo} />
-            <h1>Cineflex</h1>
+                <img src={logo} onClick={() => navigate("/")} />
+                <h1 onClick={() => navigate("/")}>Cineflex</h1>
         </Topo>
     )
 }
