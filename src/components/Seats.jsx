@@ -10,15 +10,23 @@ export default function Seats() {
 
     const [assentos, setAssentos] = useState([]);
     const [selecionado, setSelecionado] = useState([]);
+    const [cadeira, setCadeira] = useState([]);
     const [nome, setNome] = useState("");
     const [cpf, setCpf] = useState("");
+    const [filme,setFilme] = useState("");
+    const [dataHora,setDataHora] = useState("");
 
     useEffect(() => {
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${id}/seats`)
-            .then(e => setAssentos(e.data.seats));
-    }, [id]);
+            .then((e) => {
+                setAssentos(e.data.seats)
+                setFilme(e.data.movie.title)
+                setDataHora(`${e.data.day.date} às ${e.data.name}`)
 
-    function selecionarAssento(assento, isAvailable) {
+            });
+    }, []);
+
+    function selecionarAssento(assento, isAvailable,a) {
         if (!isAvailable) {
             alert("Esse assento já foi reservado!");
             return;
@@ -27,7 +35,7 @@ export default function Seats() {
             setSelecionado(selecionado.filter(item => item !== assento));
         } else {
             setSelecionado([...selecionado, assento]);
-            console.log(selecionado)
+            setCadeira([...cadeira, a]);
         }
     }
 
@@ -38,7 +46,15 @@ export default function Seats() {
                 ids: selecionado,
                 name: nome,
                 cpf: cpf
-            }).then(navigate("/sucesso")).
+            }).then(navigate("/sucesso",{
+                state: {
+                    filme,
+                    dataHora,
+                    nome,
+                    cpf,
+                    cadeira
+                }
+            })).
                 catch(e => console.log(e))
         } else {
             alert("Por favor, preencha todos os campos e selecione pelo menos um assento.");
@@ -54,7 +70,7 @@ export default function Seats() {
                         key={i}
                         $isavailable={e.isAvailable}
                         $selecionado={selecionado.includes(e.id)}
-                        onClick={() => selecionarAssento(e.id, e.isAvailable)}>
+                        onClick={() => selecionarAssento(e.id, e.isAvailable,e.name)}>
                         {e.name}
                     </Num>
                 ))}

@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import Catalog from "./components/Catalog"
 import Session from "./components/Session"
 import Seats from "./components/Seats"
+import Success from "./components/Success"
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Catalog />} />
           <Route path="/sessao/:id" element={<Session />} />
           <Route path="/assentos/:id" element={<Seats />} />
+          <Route path="/sucesso" element={<Success />} />
         </Routes>
     </BrowserRouter>
   )
